@@ -1,0 +1,8 @@
+prefix=/home/boaz/workspace/src/obstacle_feed/cmake-build-debug/devel
+
+Name: obstacle_feed
+Description: Description of obstacle_feed
+Version: 0.0.0
+Cflags: -I/home/boaz/workspace/src/obstacle_feed/cmake-build-debug/devel/include -I/home/boaz/workspace/src/obstacle_feed/include
+Libs: -L/home/boaz/workspace/src/obstacle_feed/cmake-build-debug/devel/lib -lgpmp2_planner
+Requires: actionlib actionlib_msgs cmake_modules geometry_msgs moveit_msgs nav_msgs roscpp sensor_msgs shape_msgs std_msgs tf trajectory_msgs autoware_msgs visualization_msgs

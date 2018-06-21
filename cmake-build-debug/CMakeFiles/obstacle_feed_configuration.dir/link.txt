@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,libobstacle_feed_configuration.so -o devel/lib/libobstacle_feed_configuration.so CMakeFiles/obstacle_feed_configuration.dir/src/obstacle_feed_configuration.cpp.o 
