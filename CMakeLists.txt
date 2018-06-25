@@ -122,7 +122,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES gpmp2_planner
+  LIBRARIES
   CATKIN_DEPENDS actionlib actionlib_msgs cmake_modules geometry_msgs moveit_msgs nav_msgs roscpp sensor_msgs shape_msgs std_msgs tf trajectory_msgs autoware_msgs visualization_msgs
   DEPENDS system_lib
 )
