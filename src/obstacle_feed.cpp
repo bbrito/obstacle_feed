@@ -152,8 +152,8 @@ void ObstacleFeed::visualizeObstacles(const obstacle_feed::Obstacles& obstacles)
         marker.type = visualization_msgs::Marker::CYLINDER;
         marker.pose = obstacles.Obstacles[obst_it].pose;
         ZRotToQuat(marker.pose);                                // Get Quaternion rotation
-        marker.scale.x = 2.0*obstacles.Obstacles[obst_it].major_semiaxis;
-        marker.scale.y = 2.0*obstacles.Obstacles[obst_it].minor_semiaxis;
+        marker.scale.x = 2*obstacles.Obstacles[obst_it].major_semiaxis;
+        marker.scale.y = 2*obstacles.Obstacles[obst_it].minor_semiaxis;
         marker.scale.z = 0.01;
         marker.color.a = 1.0;
         marker.color.r = 0.0;
@@ -166,19 +166,36 @@ void ObstacleFeed::visualizeObstacles(const obstacle_feed::Obstacles& obstacles)
 
     marker.header.frame_id = "base_link";           // Add frame of obstacle
     marker.header.stamp = ros::Time::now();                 // Add timestamp
-    marker.id = 1;                                    // Obstacle ID
+    marker.id = 91;                                    // Obstacle ID
     marker.type = visualization_msgs::Marker::CYLINDER;
-    marker.pose.position.x = 0;
+    marker.pose.position.x = -0.0833;
     marker.pose.position.y = 0;
-    marker.scale.x = 2.0*0.32;
-    marker.scale.y = 2.0*0.32;
+    marker.scale.x = 2*0.2603;
+    marker.scale.y = 2*0.2603;
     marker.scale.z = 0.01;
     marker.color.a = 1.0;
-    marker.color.r = 1.0;
+    marker.color.r = 0.0;
     marker.color.g = 0.0;
-    marker.color.b = 0.0;
+    marker.color.b = 1.0;
 
     markerArray.markers.push_back(marker);
+
+    marker.header.frame_id = "base_link";           // Add frame of obstacle
+    marker.header.stamp = ros::Time::now();                 // Add timestamp
+    marker.id = 92;                                    // Obstacle ID
+    marker.type = visualization_msgs::Marker::CYLINDER;
+    marker.pose.position.x = 0.0833;
+    marker.pose.position.y = 0;
+    marker.scale.x = 2*0.2603;
+    marker.scale.y = 2*0.2603;
+    marker.scale.z = 0.01;
+    marker.color.a = 1.0;
+    marker.color.r = 0.0;
+    marker.color.g = 0.0;
+    marker.color.b = 1.0;
+
+    markerArray.markers.push_back(marker);
+
     visualize_obstacles_pub.publish(markerArray);
 }
 
