@@ -17,10 +17,9 @@ public:
     ~obstacle_feed_configuration();
 
     bool initialize();
-
     bool updateConfiguration();
-
     bool initialize_success_;
+    bool activate_output_;
 
     string obstacle_base_link_;
     string pub_ellipse_topic_;
@@ -34,6 +33,13 @@ public:
     int obstacle_threshold_;
 
     int update_rate_;
+
+    std::vector<double> obst_pose_x_;
+    std::vector<double> obst_pose_y_;
+    std::vector<double> obst_pose_heading_;
+    std::vector<double> obst_dim_minor_;
+    std::vector<double> obst_dim_major_;
+
 
 private:
 

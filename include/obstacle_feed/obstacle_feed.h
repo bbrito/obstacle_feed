@@ -3,6 +3,8 @@
 
 #include <ros/ros.h>
 #include <std_msgs/Header.h>
+#include <tf/transform_listener.h>
+#include <tf/tf.h>
 
 #include <Eigen/Dense>
 
@@ -46,15 +48,15 @@ private:
 
   ros::NodeHandle nh_;
 
+  tf::TransformListener tf_listener_;
+
+  bool activate_debug_output_;
+
   boost::shared_ptr<obstacle_feed_configuration> obstacle_feed_config_;
 
-  autoware_msgs::DetectedObjectArray objectArray;
+  autoware_msgs::DetectedObjectArray objectArray_;
 
   jsk_recognition_msgs::BoundingBoxArray boundingBoxes;
-
-  geometry_msgs::Pose robotPose;
-
-  std::string obstacle_base_link_;
 
   void spinNode();
   void clearDataMember();
@@ -68,6 +70,8 @@ private:
   obstacle_feed::Obstacle FitEllipse(const autoware_msgs::DetectedObject& object, const double& distance);
   void QuatToZRot(geometry_msgs::Pose& pose);
   void ZRotToQuat(geometry_msgs::Pose& pose);
+  bool getTransform(const std::string& from, const std::string& to, Eigen::VectorXd& transform);
+  bool transformPose(const std::string& from, const std::string& to, geometry_msgs::Pose& pose);
 };
 
 #endif // OBSTACLE_FEED_H
