@@ -23,6 +23,13 @@ bool obstacle_feed_configuration::initialize()
     }
 
     // read parameter from parameter server if not set than terminate code, as this parameter is essential parameter
+    if (!nh.getParam ("activate_output", activate_output_) )
+    {
+        ROS_WARN(" Parameter 'activate_output' not set on %s node " , ros::this_node::getName().c_str());
+        return false;
+    }
+
+    // read parameter from parameter server if not set than terminate code, as this parameter is essential parameter
     if (!nh.getParam ("obstacle_base_link", obstacle_base_link_) )
     {
       ROS_WARN(" Parameter 'obstacle_base_link' not set on %s node " , ros::this_node::getName().c_str());
@@ -101,7 +108,7 @@ bool obstacle_feed_configuration::initialize()
         return false;
     }
 
-    ROS_WARN(" OBSTACLE FEED PARAMETER INITIALIZED!!");
+    ROS_WARN("OBSTACLE FEED PARAMETER INITIALIZED");
     return true;
 }
 

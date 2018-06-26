@@ -17,10 +17,9 @@ public:
     ~obstacle_feed_configuration();
 
     bool initialize();
-
     bool updateConfiguration();
-
     bool initialize_success_;
+    bool activate_output_;
 
     string obstacle_base_link_;
     string pub_ellipse_topic_;

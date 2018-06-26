@@ -58,10 +58,6 @@ private:
 
   jsk_recognition_msgs::BoundingBoxArray boundingBoxes;
 
-  geometry_msgs::Pose robotPose;
-
-  std::string obstacle_base_link_;
-
   void spinNode();
   void clearDataMember();
   void boundingBoxCallback(const jsk_recognition_msgs::BoundingBoxArray& bb);

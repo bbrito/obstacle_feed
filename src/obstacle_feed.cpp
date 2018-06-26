@@ -31,10 +31,14 @@ bool ObstacleFeed::initialize()
         // Publish obstacles if modus = 1, listen to tracked obstacles otherwise
         if (obstacle_feed_config_->obstacle_feed_mode_ == 1)
         {
+            ROS_WARN("In this mode, predefined obstacles are published");
+
             int update_rate = obstacle_feed_config_->update_rate_;
             loop_timer = nh_.createTimer(ros::Duration(1/update_rate), &ObstacleFeed::updateObstacles, this);
         }
         else if (obstacle_feed_config_->obstacle_feed_mode_ == 0) {
+            ROS_WARN("In this mode, clustered pointcloud obstacles are forwarded");
+
             bounding_boxes_pub = nh_.advertise<jsk_recognition_msgs::BoundingBoxArray>("obstacle_bounding_boxes",1);
             obstacles_sub = nh_.subscribe("detected_objects", 1, &ObstacleFeed::obstaclesCallback, this);
             bounding_boxes_sub = nh_.subscribe("cloud_cluster_tracked_bounding_box", 1, &ObstacleFeed::boundingBoxCallback, this);
@@ -43,11 +47,11 @@ bool ObstacleFeed::initialize()
             ROS_ERROR("UNDEFINED MODE");
         }
 
-        robotPose.position.x = 0;
-        robotPose.position.y = 0;
-        robotPose.position.z = 0;
-
-        obstacle_base_link_ = obstacle_feed_config_->obstacle_base_link_;
+        // Check predefined obstacles for errors
+        if (!(obstacle_feed_config_->obst_pose_x_.size() == obstacle_feed_config_->obst_pose_y_.size() && obstacle_feed_config_->obst_pose_x_.size() == obstacle_feed_config_->obst_pose_heading_.size() && obstacle_feed_config_->obst_pose_x_.size() == obstacle_feed_config_->obst_dim_minor_.size() && obstacle_feed_config_->obst_pose_x_.size() == obstacle_feed_config_->obst_dim_major_.size()))
+        {
+            ROS_ERROR("Predefined obstacle arrays are not of the same length!");
+        }
 
         return true;
     }
@@ -84,7 +88,7 @@ void ObstacleFeed::obstaclesCallback(const autoware_msgs::DetectedObjectArray& o
     {
 
     // Compute distance of obstacle to robot
-    distance = sqrt(pow(robotPose.position.x - objectArray_.objects[object_it].pose.position.x,2) + pow(robotPose.position.y - objectArray_.objects[object_it].pose.position.y,2));
+    distance = sqrt(pow(objectArray_.objects[object_it].pose.position.x,2) + pow(objectArray_.objects[object_it].pose.position.y,2));
 
       // If distance is smaller than defined bound, add to obstacles
       if (distance < obstacle_feed_config_->distance_threshold_){
@@ -154,7 +158,7 @@ void ObstacleFeed::visualizeObstacles(const obstacle_feed::Obstacles& obstacles)
 
     // Loop over obstacles in obstacle array
     for (int obst_it = 0; obst_it < obstacles.Obstacles.size(); obst_it++) {
-        marker.header.frame_id = obstacle_base_link_;           // Add frame of obstacle
+        marker.header.frame_id = obstacle_feed_config_->obstacle_base_link_;           // Add frame of obstacle
         marker.header.stamp = ros::Time::now();                 // Add timestamp
         marker.id = obst_it;                                    // Obstacle ID
         marker.type = visualization_msgs::Marker::CYLINDER;
@@ -215,7 +219,7 @@ void ObstacleFeed::updateObstacles(const ros::TimerEvent& event)
     // Create header for obstacles
     std_msgs::Header obst_header;
     obst_header.stamp = ros::Time::now();
-    obst_header.frame_id = obstacle_base_link_;
+    obst_header.frame_id = obstacle_feed_config_->obstacle_base_link_;
 
     // Create temporary obstacle entities
     obstacle_feed::Obstacles obstacles;
