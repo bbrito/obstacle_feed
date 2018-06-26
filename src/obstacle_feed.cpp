@@ -158,7 +158,7 @@ void ObstacleFeed::visualizeObstacles(const obstacle_feed::Obstacles& obstacles)
 
     // Loop over obstacles in obstacle array
     for (int obst_it = 0; obst_it < obstacles.Obstacles.size(); obst_it++) {
-        marker.header.frame_id = obstacle_feed_config_->obstacle_base_link_;           // Add frame of obstacle
+    /*    marker.header.frame_id = obstacle_feed_config_->obstacle_base_link_;           // Add frame of obstacle
         marker.header.stamp = ros::Time::now();                 // Add timestamp
         marker.id = obst_it;                                    // Obstacle ID
         marker.type = visualization_msgs::Marker::CYLINDER;
@@ -172,7 +172,7 @@ void ObstacleFeed::visualizeObstacles(const obstacle_feed::Obstacles& obstacles)
         marker.color.g = 1.0;
         marker.color.b = 0.0;
 
-        markerArray.markers.push_back(marker);
+        markerArray.markers.push_back(marker);*/
     }
 
 
@@ -194,7 +194,7 @@ void ObstacleFeed::visualizeObstacles(const obstacle_feed::Obstacles& obstacles)
 
     markerArray.markers.push_back(marker);
 
-    marker.header.frame_id = "base_link";               // Add frame of robot
+  /*  marker.header.frame_id = "base_link";               // Add frame of robot
     marker.header.stamp = ros::Time::now();             // Add timestamp
     marker.id = 92;                                     // Obstacle ID
     marker.type = visualization_msgs::Marker::CYLINDER;
@@ -209,7 +209,7 @@ marker.scale.y = 2*0.2603;              // Marker is specified by diameter, not 
     marker.color.g = 0.0;
     marker.color.b = 1.0;
 
-    markerArray.markers.push_back(marker);
+    markerArray.markers.push_back(marker);*/
 
     visualize_obstacles_pub.publish(markerArray);
 }
