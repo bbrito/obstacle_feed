@@ -35,6 +35,13 @@ public:
 
     int update_rate_;
 
+    std::vector<double> obst_pose_x_;
+    std::vector<double> obst_pose_y_;
+    std::vector<double> obst_pose_heading_;
+    std::vector<double> obst_dim_minor_;
+    std::vector<double> obst_dim_major_;
+
+
 private:
 
     void free_allocated_memory();

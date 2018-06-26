@@ -71,6 +71,36 @@ bool obstacle_feed_configuration::initialize()
         return false;
     }
 
+    if (!nh_config.getParam ("predefined_obstacles/pose_x", obst_pose_x_) )
+    {
+        ROS_WARN(" Parameter '/predefined_obstacles/pose_x not set on %s node" , ros::this_node::getName().c_str());
+        return false;
+    }
+
+    if (!nh_config.getParam ("predefined_obstacles/pose_y", obst_pose_y_) )
+    {
+        ROS_WARN(" Parameter '/predefined_obstacles/pose_y not set on %s node" , ros::this_node::getName().c_str());
+        return false;
+    }
+
+    if (!nh_config.getParam ("predefined_obstacles/heading", obst_pose_heading_) )
+    {
+        ROS_WARN(" Parameter '/predefined_obstacles/pose_x not set on %s node" , ros::this_node::getName().c_str());
+        return false;
+    }
+
+    if (!nh_config.getParam ("predefined_obstacles/dimensions/minor_semiaxis", obst_dim_minor_) )
+    {
+        ROS_WARN(" Parameter '/predefined_obstacles/dimensions/minor_semiaxis not set on %s node" , ros::this_node::getName().c_str());
+        return false;
+    }
+
+    if (!nh_config.getParam ("predefined_obstacles/dimensions/major_semiaxis", obst_dim_major_) )
+    {
+        ROS_WARN(" Parameter '/predefined_obstacles/dimensions/major_semiaxis not set on %s node" , ros::this_node::getName().c_str());
+        return false;
+    }
+
     ROS_WARN(" OBSTACLE FEED PARAMETER INITIALIZED!!");
     return true;
 }

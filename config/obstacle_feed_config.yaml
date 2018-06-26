@@ -12,7 +12,16 @@ update_rate: 5
 
 # Define the frame in which the predefined obstacles are represented
 #obstacle_base_link: base_link
-obstacle_base_link: odom
+obstacle_base_link: base_link
 
 pub_ellipse_topic: ellipse_objects_feed
 pub_visualization_topic: visualize_ellipses_array 
+
+# Create predefined obstacles
+predefined_obstacles:
+    pose_x: [0.0, 1.0, 2.0, -1.0]
+    pose_y: [1.0, 0.0, -1.0, 1.0]
+    heading: [0.0, 0.0, 0.0, 0.5]
+    dimensions:
+        minor_semiaxis: [0.1, 0.2, 0.3, 0.2]
+        major_semiaxis: [0.3, 0.4, 0.5, 0.4]
