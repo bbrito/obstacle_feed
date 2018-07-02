@@ -30,7 +30,6 @@ find_package(Eigen REQUIRED)
 
 add_definitions(${EIGEN_DEFINITIONS})
 
-find_package(gpmp2 REQUIRED)
 find_package(GTSAM REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -137,7 +136,6 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${EIGEN_INCLUDE_DIRS}
-  ${gpmp2_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -153,7 +151,6 @@ include_directories(
 add_library(${PROJECT_NAME} src/${PROJECT_NAME}.cpp)
 add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}
-   gpmp2
    ${catkin_LIBRARIES}
 )
 
@@ -214,10 +211,3 @@ target_link_libraries(${PROJECT_NAME}_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_gpmp2_planner.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
